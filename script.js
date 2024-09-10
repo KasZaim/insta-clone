@@ -10,23 +10,23 @@ let posts = [
         'date': 'Gestern',
         'hashtags': '#foodie #lazy',
         'liked': false,
-        'comments':[
+        'comments': [
             {
-                'author':'Mister Joe',
-                'pic':'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
-                'comment':'Das sieht Lecker aus'
+                'author': 'Izzy. I',
+                'pic': 'img/Profilbilder/pexels-pixabay-415829.jpg',
+                'comment': 'Yummy '
             },
             {
-                'author':'Mister Joe',
-                'pic':'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
-                'comment':'Das sieht Lecker aus'
+                'author': 'Mister Joe',
+                'pic': 'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
+                'comment': 'Das sieht Lecker aus'
             }
         ]
     },
     {
         'profilimg': 'img/Profilbilder/daniel-xavier-1239288.jpg',
         'author': 'Fashion_Nova',
-        'image': ['img/posts/img2.jpg','img/posts/img3.jpg','img/posts/img4.jpg'],
+        'image': ['img/posts/img2.jpg', 'img/posts/img3.jpg', 'img/posts/img4.jpg'],
         'description': 'Photoshoot for the New Brand Prana Luna.',
         'location': 'Hamburg',
         'likes': 1521,
@@ -34,16 +34,16 @@ let posts = [
         'date': 'vor 45 Minuten',
         'hashtags': '#fashion #instalife #prana',
         'liked': false,
-        'comments':[
+        'comments': [
             {
-                'author':'Mister Joe',
-                'pic':'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
-                'comment':'Das sieht Lecker aus'
+                'author': 'Mister Joe',
+                'pic': 'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
+                'comment': 'Slayin that Look !'
             },
             {
-                'author':'Mister Joe',
-                'pic':'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
-                'comment':'Das sieht Lecker aus'
+                'author': 'Laura',
+                'pic': 'img/Profilbilder/daniel-xavier-1239288.jpg',
+                'comment': 'Nice'
             }
         ]
     },
@@ -58,16 +58,16 @@ let posts = [
         'date': 'vor 5 std',
         'hashtags': '#goodlife #healthylifestyle #fruits',
         'liked': false,
-        'comments':[
+        'comments': [
             {
-                'author':'Mister Joe',
-                'pic':'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
-                'comment':'Das sieht Lecker aus'
+                'author': 'Mister Joe',
+                'pic': 'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
+                'comment': 'Das sieht Lecker aus'
             },
             {
-                'author':'Mister Joe',
-                'pic':'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
-                'comment':'Das sieht Lecker aus'
+                'author': 'Mister Joe',
+                'pic': 'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
+                'comment': 'Das sieht Lecker aus'
             }
         ]
     },
@@ -82,16 +82,16 @@ let posts = [
         'date': 'vor 10 std',
         'hashtags': '#travel #vloglifestyle #happy ',
         'liked': false,
-        'comments':[
+        'comments': [
             {
-                'author':'Mister Joe',
-                'pic':'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
-                'comment':'Das sieht Lecker aus'
+                'author': 'Mister Joe',
+                'pic': 'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
+                'comment': 'Das sieht Lecker aus'
             },
             {
-                'author':'Mister Joe',
-                'pic':'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
-                'comment':'Das sieht Lecker aus'
+                'author': 'Mister Joe',
+                'pic': 'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
+                'comment': 'Das sieht Lecker aus'
             }
         ]
     }
@@ -105,34 +105,25 @@ function renderPosts() {
         let commentsAmount = posts[i].comments.length;
         
         content.innerHTML += postsTemplate(i, post, commentsAmount);
-        multipleImageSlider(i,post,commentsAmount);
+
+        // Carousel wird direkt in postsTemplate gerendert
         renderComments(i);
     }
 }
+
+
 function renderComments(i){
     let comments = document.getElementById(`comments${i}`);
-    let commentsAmount =posts[i].comments.length;
-    comments.innerHTML ='';
+    let commentsAmount = posts[i].comments.length;
+    comments.innerHTML = '';
     for (let k = 0; k < commentsAmount; k++) {
-        const comment = posts[k].comments;
+        const comment = posts[i].comments[k]; // Korrektur hier
         comments.innerHTML +=`
-            <div><b>${comment['author']}</b>: ${comment['comment']}</div>`;
+
+            <div><b>${comment.author}</b>: ${comment.comment}</div>`;
     }
- }
-function multipleImageSlider(i,post){//Soll den multiple image slider rendern
-        if (post.image.length > 1) {
-        document.getElementById(`multi-img${i}`).remove();
-        document.getElementById(`carousel-container${i}`).innerHTML = carouselTemplate(i,post);
-        
-        for (let j = 0; j < post.image.length; j++) {
-            const image = post.image[j];
-            document.getElementById(`carousel-inner`).innerHTML +=`
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="${image}">
-            </div>`; 
-        }
-    } 
 }
+
 function readmore(i) {
     let span = document.getElementById(`more${i}`);
     let fullText = document.getElementById(`full-text${i}`);
@@ -149,21 +140,7 @@ function scrollRight() {
     let scrollableDiv = document.getElementById('horizontal-scroll');
     scrollableDiv.scrollLeft += 100;
 };
-/* 
-let currentImage = "img/love.png"; // funktioniert nur wenn die variable global ist!-- alternative Like Funktion;
-function gotLiked(i) {
-    let image = document.getElementById(`heart${i}`);
-    if (currentImage == "img/love.png") {
-        image.src = "img/heart.png";
-        currentImage = "img/heart.png";
-        posts[i].likes++;
-    } else {
-        image.src = "img/love.png";
-        currentImage = "img/love.png";
-        posts[i].likes--;
-    }
-    document.getElementById(`liked${i}`).innerHTML = posts[i].likes;
-}*/
+
 function gotLiked(i) {
     let image = document.getElementById(`heart${i}`);
     if (posts[i].liked == false) {
@@ -192,17 +169,17 @@ function filterNames() {
     }
 }
 
-function enableButton(i){
+function enableButton(i) {
     let input = document.getElementById(`comment-input${i}`);
     let commentBtn = document.getElementById(`comment-btn${i}`);
     commentBtn.disabled = !input.value;
     if (commentBtn.disabled == false) {
         commentBtn.style.color = 'darkblue';
-    }else{
+    } else {
         commentBtn.style.color = 'gray';
     }
 }
- 
+
 
 
 
