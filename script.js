@@ -1,7 +1,7 @@
 let posts = [
     {
         'profilimg': 'img/Profilbilder/ali-pazani-2613260.jpg',
-        'author': 'JasminTasty',
+        'user': 'JasminTasty',
         'image': ['img/posts/img1.jpg'],
         'description': 'Breakfast for Champions,',
         'location': 'Home',
@@ -12,12 +12,12 @@ let posts = [
         'liked': false,
         'comments': [
             {
-                'author': 'Izzy. I',
+                'user': 'Izzy. I',
                 'pic': 'img/Profilbilder/pexels-pixabay-415829.jpg',
                 'comment': 'Yummy '
             },
             {
-                'author': 'Mister Joe',
+                'user': 'Mister Joe',
                 'pic': 'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
                 'comment': 'Das sieht Lecker aus'
             }
@@ -25,7 +25,7 @@ let posts = [
     },
     {
         'profilimg': 'img/Profilbilder/daniel-xavier-1239288.jpg',
-        'author': 'Fashion_Nova',
+        'user': 'Fashion_Nova',
         'image': ['img/posts/img2.jpg', 'img/posts/img3.jpg', 'img/posts/img4.jpg'],
         'description': 'Photoshoot for the New Brand Prana Luna.',
         'location': 'Hamburg',
@@ -36,12 +36,12 @@ let posts = [
         'liked': false,
         'comments': [
             {
-                'author': 'Mister Joe',
+                'user': 'Mister Joe',
                 'pic': 'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
                 'comment': 'Slayin that Look !'
             },
             {
-                'author': 'Laura',
+                'user': 'Laura',
                 'pic': 'img/Profilbilder/daniel-xavier-1239288.jpg',
                 'comment': 'Nice'
             }
@@ -49,7 +49,7 @@ let posts = [
     },
     {
         'profilimg': 'img/Profilbilder/pixabay-38554.jpg',
-        'author': 'Healthy_Recipes',
+        'user': 'Healthy_Recipes',
         'image': ['img/posts/img5.jpg'],
         'description': 'Hier haben wir ein High Protein Porridge,',
         'location': 'LXS Studios GmbH, Köln',
@@ -60,12 +60,12 @@ let posts = [
         'liked': false,
         'comments': [
             {
-                'author': 'Mister Joe',
+                'user': 'Mister Joe',
                 'pic': 'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
                 'comment': 'Das sieht Lecker aus'
             },
             {
-                'author': 'Mister Joe',
+                'user': 'Mister Joe',
                 'pic': 'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
                 'comment': 'Das sieht Lecker aus'
             }
@@ -73,7 +73,7 @@ let posts = [
     },
     {
         'profilimg': 'img/Profilbilder/pexels-pixabay-413959.jpg',
-        'author': 'Travel_addicted',
+        'user': 'Travel_addicted',
         'image': ['img/posts/img6.jpg'],
         'description': 'Mal wieder unterwegs,',
         'location': 'Budapest',
@@ -84,12 +84,12 @@ let posts = [
         'liked': false,
         'comments': [
             {
-                'author': 'Mister Joe',
+                'user': 'Mister Joe',
                 'pic': 'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
                 'comment': 'Das sieht Lecker aus'
             },
             {
-                'author': 'Mister Joe',
+                'user': 'Mister Joe',
                 'pic': 'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
                 'comment': 'Das sieht Lecker aus'
             }
@@ -120,7 +120,7 @@ function renderComments(i){
         const comment = posts[i].comments[k]; // Korrektur hier
         comments.innerHTML +=`
 
-            <div><b>${comment.author}</b>: ${comment.comment}</div>`;
+            <div><b>${comment.user}</b>: ${comment.comment}</div>`;
     }
 }
 
@@ -155,7 +155,7 @@ function gotLiked(i) {
     document.getElementById(`liked${i}`).innerHTML = posts[i].likes;
 }
 
-//Filters out the Authors;
+//Filters out the user;
 function filterNames() {
     let search = document.getElementById('search').value;
     search = search.toLowerCase();
@@ -163,7 +163,7 @@ function filterNames() {
     content.innerHTML = '';
     for (let i = 0; i < posts.length; i++) {
         let post = posts[i];
-        if (post.author.toLowerCase().includes(search)) {
+        if (post.user.toLowerCase().includes(search)) {
             content.innerHTML += postsTemplate(i, post);
         }
     }

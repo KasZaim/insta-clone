@@ -5,7 +5,7 @@
 //                 <div class="post-header">
 //                     <div class="post-header-left">
 //                         <div class="profil-icon"><img src="${post['profilimg']}"></div>
-//                         <div class="influencer"><b>${post['author']}</b> ${post['location']}</div> 
+//                         <div class="influencer"><b>${post['user']}</b> ${post['location']}</div> 
 //                     </div>
 //                     <i class="fa-solid fa-ellipsis"></i>
 //                 </div>
@@ -25,7 +25,7 @@
 //                     </div>
 //                 </div>
 //                 <div id="posted-text-container${i}" class="post-text cut-posted-text">
-//                     <b>${post['author']}</b> ${post['description']} 
+//                     <b>${post['user']}</b> ${post['description']} 
 //                     <span class="read-more" id="more${i}" onclick="readmore(${i})" >...more</span> 
 //                     <div id="full-text${i}" class="full-text d-none">
 //                         ${post['full-description']}
@@ -56,7 +56,7 @@ function postsTemplate(i, post, commentsAmount) {
                 <div class="post-header">
                     <div class="post-header-left">
                         <div class="profil-icon"><img src="${post['profilimg']}"></div>
-                        <div class="influencer"><b>${post['author']}</b> ${post['location']}</div> 
+                        <div class="influencer"><b>${post['user']}</b> ${post['location']}</div> 
                     </div>
                     <i class="fa-solid fa-ellipsis"></i>
                 </div>
@@ -78,7 +78,7 @@ function postsTemplate(i, post, commentsAmount) {
                     </div>
                 </div>
                 <div id="posted-text-container${i}" class="post-text cut-posted-text">
-                    <b>${post['author']}</b> ${post['description']} 
+                    <b>${post['user']}</b> ${post['description']} 
                     <span class="read-more" id="more${i}" onclick="readmore(${i})" >...more</span> 
                     <div id="full-text${i}" class="full-text d-none">
                         ${post['full-description']}
