@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+   
+    <title>Instaboard</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <script src="script.js"></script>
+    
+    <script src="templates.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/favico.js/0.3.10/favico.js" integrity="sha512-pfdXrq2www4ELUYuC83cqzRx/Lk3IVgFaDwePd5EtAd2v5Mpy0uMPc7j7srVQsjHsXzSNGz/PbWb1HZajgyDSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body onload="renderPosts()">
+    <div class="content" id="content">
+        <div class="header">
+            <div class="headline">
+                <u>InstaBoard</u>
+            </div>
+
+            <form>
+                <input onkeydown="filterNames()" type="text" placeholder="Suche ..." id="search" aria-label="search through site content">
+            </form>
+
+            <div class="categorys"><img src="img/home-7-32.png">Startseite</div>
+            <div class="categorys"><img src="img/compass-3-32.png">Entdecken</div>
+            <div class="categorys"><img src="img/video.png">Reels</div>
+            <div class="categorys"><img src="img/send.png">Nachrichten</div>
+            <div class="categorys"><img src="img/add.png">Erstellen</div>
+        </div>
+
+        <div class="posts-content">
+            
+                <div class="scrollable-container" >
+                    <button onclick="scrollLinks()" class="btn-scroll-left" id="scroll-left"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button onclick="scrollRight()" class="btn-scroll-right" id="scroll-right"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            <div class="reels-container" id="horizontal-scroll">
+                
+                <div class="storys-container" id="story-container">
+                    
+                    <div class="story-circle ">
+                        <div class="reels">
+                            <img src="img/Profilbilder/pexels-pixabay-415829.jpg">
+                        </div>
+                        <div class="story-user">
+                            Izzy.I
+                        </div>
+                    </div>
+                    <div class="story-circle">
+                        <div class="reels">
+                            <img src="img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg">
+                        </div>
+                        <div class="story-user">
+                            Mister.Joe
+                        </div>
+                    </div>
+                    <div class="story-circle">
+                        <div class="reels">
+                            <img src="img/Profilbilder/pexels-pixabay-413959.jpg">
+                        </div>
+                        <div class="story-user">
+                            Anna_nekrachovic
+                        </div>
+                    </div>
+                    <div class="story-circle">
+                        <div class="reels">
+                            <img src="img/Profilbilder/pixabay-38554.jpg">
+                        </div>
+                        <div class="story-user">
+                            Ingrid Schäfer
+                        </div>
+                    </div>
+                    <div class="story-circle">
+                        <div class="reels">
+                            <img src="img/Profilbilder/vinicius-wiesehofer-1130626.jpg">
+                        </div>
+                        <div class="story-user">
+                            Paulina
+                        </div>
+                    </div>
+                    <div class="story-circle">
+                        <div class="reels">
+                            <img src="img/Profilbilder/ali-pazani-2613260.jpg">
+                        </div>
+                        <div class="story-user">
+                            Jasmin
+                        </div>
+                    </div>
+                    <div class="story-circle">
+                        <div class="reels">
+                            <img src="img/Profilbilder/daniel-xavier-1239288.jpg">
+                        </div>
+                        <div class="story-user">
+                            Laura
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="posts" id="posted">
+                
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
