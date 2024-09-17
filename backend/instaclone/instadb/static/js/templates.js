@@ -3,14 +3,19 @@ function postsTemplate(i, post, commentsAmount) {
     return /*html*/`<div class="main-posts">
                 <div class="post-header">
                     <div class="post-header-left">
-                        <div class="profil-icon"><img src="${post['profilimg']}"></div>
-                        <div class="influencer"><b>${post['user']}</b> ${post['location']}</div> 
+                        <div class="profil-icon">
+                        <img src="${post['user_profile__profile_image']}" alt="Profile image">
+                        </div>
+                        <div class="influencer">
+                            <b>${post['user_profile__username']}</b> 
+                            <!-- ${post['location']} -->
+                        </div> 
                     </div>
                     <i class="fa-solid fa-ellipsis"></i>
                 </div>
                 
                 <div class="post-img" id="carousel-container${i}">
-                    ${post.image.length > 1 ? carouselTemplate(i, post): `<img id="multi-img${i}" src="${post.image[0]}" alt="Post image">`}   <!-- Mehrere Bilder -> Karussell anzeigen // Einzelnes Bild -->
+                    ${post.images.length > 1 ? carouselTemplate(i, post) : `<img id="multi-img${i}" src="${post.images[0]}" alt="Post image">`}   <!-- Mehrere Bilder -> Karussell anzeigen // Einzelnes Bild -->
                 </div>
 
                 <div class="interactions">
@@ -51,28 +56,6 @@ function postsTemplate(i, post, commentsAmount) {
                 </div>
             </div>`;
 }
-
-
-// function carouselTemplate(i, post) {
-//     return/*html*/`<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-//                         <ol class="carousel-indicators">
-//                             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-//                             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-//                             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-//                         </ol>
-//                         <div class="carousel-inner" id="carousel-inner">
-
-//                         </div>
-//                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-//                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-//                         <span class="sr-only">Previous</span>
-//                         </a>
-//                         <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-//                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-//                         <span class="sr-only">Next</span>
-//                         </a>
-//                     </div>`;
-// }
 
 function carouselTemplate(i, post) {
     return /*html*/`
