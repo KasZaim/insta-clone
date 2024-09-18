@@ -18,6 +18,7 @@ class Posts(models.Model):
     hashtags = models.CharField(blank=True, max_length=50, default="")
     liked_by = models.ManyToManyField(UserProfile, related_name='liked_posts', through='Likes')
     liked_by_me = models.BooleanField(default=False)
+    likes_count = models.IntegerField(default=0)  
     # many-to-many Ein Post kann von vielen Benutzern geliked werden/Ein Benutzer kann viele Posts liken.
 
     def __str__(self):

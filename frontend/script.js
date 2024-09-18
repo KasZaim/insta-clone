@@ -8,6 +8,7 @@ function fetchPosts() {
     fetch(`${url}/get_posts/`)
         .then(response => response.json())
         .then(posts => {
+            fetchedPosts = [];
             renderPosts(posts);
             posts.forEach(post => {
                 fetchedPosts.push(post)
@@ -23,8 +24,8 @@ function renderPosts(posts) {
     for (let i = 0; i < posts.length; i++) {
         const post = posts[i];
         let commentsAmount = post.comments_count;
-
-        content.innerHTML += postsTemplate(i, post, commentsAmount);
+        let likesAmount = post.likes_count;
+        content.innerHTML += postsTemplate(i, post, commentsAmount,likesAmount);
 
         // Carousel wird direkt in postsTemplate gerendert
         renderComments(i, posts);
@@ -62,26 +63,36 @@ function scrollRight() {
 };
 
 
-async function renderLikes(event, i) {
-    event.preventDefault();  // Verhindere das Neuladen der Seite
-
-    const post = fetchedPosts[i];  // Den spezifischen Post holen
-    const response = await fetch(`http://127.0.0.1:8000/toggle_like/`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `post_id=${post.id}&user_profile_id=${post.user_profile__id}`
-    });
-    event.preventDefault();
-    const data = await response.json();  // Erhalte die Serverantwort
-    if (data.liked) {
-        document.getElementById(`heart${i}`).src = "img/heart.png";  
+async function renderLikes(i) {
+    const post = fetchedPosts[i];  
+    // const response = await fetch(`http://127.0.0.1:8000/toggle_like/`, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ post_id: post.id })  
+    // });
+    // const data = await response.json();
+    debugger
+    const img = document.getElementById(`heart${i}`);
+    if (fetchedPosts[i].liked_by_me) {
+        console.log('wurde auf false gesetzt')
+        fetchedPosts[i].liked_by_me=false;
+        fetchedPosts[i].likes_count--
     } else {
-        document.getElementById(`heart${i}`).src = "img/love.png";
+        console.log('wurde auf true gesetzt')
+        fetchedPosts[i].liked_by_me=true;
+        fetchedPosts[i].likes_count++
     }
-    document.getElementById(`liked${i}`).innerText = data.likes_count; 
-    return false // Like-Zählung aktualisieren
+
+    if (img.src.includes("love.png")) {
+        img.src = "img/heart.png";
+    } else {
+        img.src = "img/love.png";
+    }
+    document.getElementById(`liked${i}`).innerText = fetchedPosts[i].likes_count; 
+
+    return false; 
 }
 
 

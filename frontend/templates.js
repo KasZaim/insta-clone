@@ -1,5 +1,5 @@
 
-function postsTemplate(i, post, commentsAmount) {
+function postsTemplate(i, post, commentsAmount,likesAmount) {
     return /*html*/`<div class="main-posts">
                 <div class="post-header">
                     <div class="post-header-left">
@@ -21,13 +21,12 @@ function postsTemplate(i, post, commentsAmount) {
                 <div class="interactions">
                     <div class="like-icons">
                     <div class="like-comment-share">
-                            <img onclick="renderLikes(event,${i})" id="heart${i}" 
-                                src="${post.liked ? 'img/heart.png' : 'img/love.png'}" alt="Like Button">
+                            <img onclick="renderLikes(${i})" id="heart${i}" src="${post.liked ? 'img/heart.png' : 'img/love.png'}" alt="Like Button">
                             <img src="img/comment.png">
                             <img src="img/send.png" alt="">
                         </div>
                         <div>
-                            <b>Gefällt <span id="liked${i}"> ${post['likes_count']}</span> Mal</b>
+                            <b>Gefällt <span id="liked${i}"> ${likesAmount}</span> Mal</b>
                         </div>
                     </div>
                 </div>
