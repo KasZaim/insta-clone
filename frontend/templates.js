@@ -21,7 +21,7 @@ function postsTemplate(i, post, commentsAmount,likesAmount) {
                 <div class="interactions">
                     <div class="like-icons">
                     <div class="like-comment-share">
-                            <img onclick="renderLikes(${i})" id="heart${i}" src="${post.liked ? 'img/heart.png' : 'img/love.png'}" alt="Like Button">
+                            <img onclick="renderLikes(${i})" id="heart${i}" src="${post.liked_by_me ? 'img/heart.png' : 'img/love.png'}" alt="Like Button">
                             <img src="img/comment.png">
                             <img src="img/send.png" alt="">
                         </div>
@@ -52,7 +52,7 @@ function postsTemplate(i, post, commentsAmount,likesAmount) {
                 <div class="comment-section">
                     <img src="img/smile.png" alt="">
                     <input id="comment-input${i}" onkeydown="enableButton(${i})" placeholder="Kommentieren ..." type="text">
-                    <button disabled id="comment-btn${i}">Posten</button>
+                    <button disabled onclick="postComment(${i})" id="comment-btn${i}">Posten</button>
                 </div>
             </div>`;
 }

@@ -73,6 +73,8 @@ CSRF_TRUSTED_ORIGINS = [
 
 
 CORS_ALLOWED_ORIGINS = [
+    
+    '*', #TODO:delete on deployment
 
   'http://127.0.0.1:5500',
 

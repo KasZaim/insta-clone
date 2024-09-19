@@ -14,7 +14,7 @@ class get_posts(View):
     def get(self, request):
         posts = Posts.objects.all().annotate(
             comments_count=Count('comments'),
-            total_likes=Count('liked_by')
+            total_likes_count=Count('liked_by')
         ).values(
             'id',
             'user_profile__username',
@@ -26,7 +26,6 @@ class get_posts(View):
             'created_at',
             'comments_count',
             'liked_by_me',
-            'likes_count',
             'total_likes',
             'image'
         )
@@ -48,8 +47,8 @@ class get_posts(View):
                 'hashtags': post['hashtags'],
                 'created_at': created_at,
                 'comments_count': post['comments_count'],
-                'likes_count': post['total_likes'], 
-                'liked_by_me': post['liked_by_me'],  
+                'liked_by_me': post['liked_by_me'],
+                'total_likes': post['total_likes'],
                 'images': images,  
                 'comments': comments  
             }
@@ -75,15 +74,39 @@ class ToggleLike(View):
 
             if post.liked_by_me:
                 post.liked_by_me = False
-                post.likes_count-=1
+                post.total_likes -=1
             else:
                 post.liked_by_me = True
-                post.likes_count+=1
-
+                post.total_likes+=1
+                
             post.save()
             return JsonResponse({
                 'liked': post.liked_by_me,
-                'likes_count': post.likes_count
+                'likes_count': post.total_likes
+            })
+
+        except Posts.DoesNotExist:
+            return JsonResponse({'error': 'Post not found'}, status=404)
+
+class PostComment(View):
+    def post(self, request):
+        data = json.loads(request.body)
+        post_id = data.get('post_id')
+        comment_text=data.get('comment_text')
+        username=data.get('user_profile__username')
+        try:
+            post = Posts.objects.get(id=post_id)
+            user_profile = UserProfile.objects.get(username=username)
+            comment=Comments.objects.create(
+                post=post,
+                user_profile=user_profile,
+                comment_text=comment_text,
+            )
+            comments_count = Comments.objects.filter(post=post).count()
+            return JsonResponse({
+                'success': True,
+                'message': 'Comment posted successfully',
+                'comments_count': comments_count
             })
 
         except Posts.DoesNotExist:

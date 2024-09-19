@@ -12,8 +12,9 @@ function fetchPosts() {
             renderPosts(posts);
             posts.forEach(post => {
                 fetchedPosts.push(post)
+                console.log(post)
             });
-            console.log(fetchedPosts)
+
         })
         .catch(error => console.error('Error fetching posts:', error));
 }
@@ -24,8 +25,8 @@ function renderPosts(posts) {
     for (let i = 0; i < posts.length; i++) {
         const post = posts[i];
         let commentsAmount = post.comments_count;
-        let likesAmount = post.likes_count;
-        content.innerHTML += postsTemplate(i, post, commentsAmount,likesAmount);
+        let likesAmount = post.total_likes;
+        content.innerHTML += postsTemplate(i, post, commentsAmount, likesAmount);
 
         // Carousel wird direkt in postsTemplate gerendert
         renderComments(i, posts);
@@ -62,37 +63,52 @@ function scrollRight() {
     scrollableDiv.scrollLeft += 100;
 };
 
+async function postComment(i) {
+    const post = fetchedPosts[i];
+    let commentInput = document.getElementById(`comment-input${i}`).value;
+
+   const response = await fetch(`http://127.0.0.1:8000/post_comment/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            user_profile__username: 'JasminTasty',  // Übergib den Benutzernamen
+            comment_text: commentInput,
+            post_id: post.id
+        })
+    });
+    
+    const data = await response.json();
+    fetchPosts();
+    commentInput.value='';
+
+}
+
 
 async function renderLikes(i) {
-    const post = fetchedPosts[i];  
-    // const response = await fetch(`http://127.0.0.1:8000/toggle_like/`, {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({ post_id: post.id })  
-    // });
-    // const data = await response.json();
-    debugger
-    const img = document.getElementById(`heart${i}`);
-    if (fetchedPosts[i].liked_by_me) {
-        console.log('wurde auf false gesetzt')
-        fetchedPosts[i].liked_by_me=false;
-        fetchedPosts[i].likes_count--
-    } else {
-        console.log('wurde auf true gesetzt')
-        fetchedPosts[i].liked_by_me=true;
-        fetchedPosts[i].likes_count++
-    }
+    const post = fetchedPosts[i];
+    const response = await fetch(`http://127.0.0.1:8000/toggle_like/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ post_id: post.id })
+    });
+    const data = await response.json();
+    console.log(data);
+    renderlikedHeart(data, i)
 
-    if (img.src.includes("love.png")) {
-        img.src = "img/heart.png";
+}
+
+function renderlikedHeart(data, i) {
+    const img = document.getElementById(`heart${i}`);
+    if (data.liked) {
+        img.src = "img/heart.png";  // Geändert, um den gelikten Zustand darzustellen
     } else {
         img.src = "img/love.png";
     }
-    document.getElementById(`liked${i}`).innerText = fetchedPosts[i].likes_count; 
-
-    return false; 
+    document.getElementById(`liked${i}`).innerText = data.likes_count;
 }
 
 
@@ -122,7 +138,7 @@ function filterNames() {
     let content = document.getElementById('posted');
     content.innerHTML = '';
     for (let i = 0; i < posts.length; i++) {
-        let post = posts[i];
+        let post = fetchedPosts[i];
         if (post.user.toLowerCase().includes(search)) {
             content.innerHTML += postsTemplate(i, post);
         }
