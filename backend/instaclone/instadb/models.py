@@ -14,7 +14,7 @@ class UserProfile(models.Model):
 class Posts(models.Model):
     user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     description = models.CharField(blank=False, max_length=60, default="")
-    image = models.TextField(blank=True, null=True)  
+    image = models.ImageField(upload_to='img/posts/', null=True, blank=True)  # Neue Konfiguration
     description_headline = models.CharField(blank=False, max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     hashtags = models.CharField(blank=True, max_length=50, default="")

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Neuen Post erstellen</title>
+    <!-- Bootstrap CSS (optional) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Dein eigenes CSS -->
+    <link rel="stylesheet" href="create.style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Neuen Post erstellen</h1>
+        <form action="/create_post/" method="post" onsubmit="createPost(event)" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="description_headline">Überschrift</label>
+                <input type="text" class="form-control" id="description_headline" name="description_headline" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Beschreibung</label>
+                <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="hashtags">Hashtags</label>
+                <input type="text" class="form-control" id="hashtags" name="hashtags">
+            </div>
+            <div class="form-group">
+                <label for="image">Bild hochladen</label>
+                <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Post erstellen</button>
+        </form>
+    </div>
+
+    <!-- Optional: Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    
+</body>
+</html>

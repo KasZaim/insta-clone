@@ -2,7 +2,6 @@
 let fetchedPosts = [];
 let url = 'http://127.0.0.1:8000';
 let isProcessingLike = false;
-
 function fetchPosts() {
     console.log("fetchPosts() wurde aufgerufen");
     fetch(`${url}/get_posts/`)
@@ -27,8 +26,6 @@ function renderPosts(posts) {
         let commentsAmount = post.comments_count;
         let likesAmount = post.total_likes;
         content.innerHTML += postsTemplate(i, post, commentsAmount, likesAmount);
-
-        // Carousel wird direkt in postsTemplate gerendert
         renderComments(i, posts);
     }
 }
@@ -54,6 +51,7 @@ function readmore(i) {
     fullText.classList.remove('d-none');
     textContainer.classList.remove('cut-posted-text');
 }
+
 function scrollLinks() {
     let scrollableDiv = document.getElementById('horizontal-scroll');
     scrollableDiv.scrollLeft -= 100;
@@ -83,6 +81,29 @@ async function postComment(i) {
     fetchPosts();
     commentInput.value='';
 
+}
+async function createPost(event) {
+    event.preventDefault(); 
+    const form = document.querySelector('form');
+    const formData = new FormData(form);
+
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/create_post/`, {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            alert('Post erfolgreich erstellt!');
+            window.location.href = 'index.html';  
+        } else {
+            const errorData = await response.json();
+            alert('Fehler beim Erstellen des Posts: ' + errorData.message);
+        }
+    } catch (error) {
+        console.error('Fehler:', error);
+        alert('Fehler beim Senden der Anfrage.');
+    }
 }
 
 

@@ -1,6 +1,7 @@
+from django.utils import timezone
 import json
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views import View
 from .models import Comments, Likes, Posts, UserProfile
 from django.db.models import Count
@@ -34,6 +35,7 @@ class get_posts(View):
         for post in posts:
             
             images = post['image'].split(', ') if post['image'] else [] # Split the image field into a list of image paths
+            # image_url = post['image'] if post['image'] else ""
             created_at = DateFormat(post['created_at']).format('d.m.Y')# formats the Date
             comments = get_comments_for_post(post['id'])
             
@@ -111,3 +113,26 @@ class PostComment(View):
 
         except Posts.DoesNotExist:
             return JsonResponse({'error': 'Post not found'}, status=404)
+        
+class CreatePostView(View):
+    def get(self, request):
+        return render(request, 'create-post.html')
+
+    def post(self, request):
+        description_headline = request.POST.get('description_headline')
+        description = request.POST.get('description')
+        hashtags = request.POST.get('hashtags')
+        image = request.FILES.get('image')
+
+        user_profile = UserProfile.objects.get(username='JasminTasty') 
+
+        post = Posts.objects.create(
+            user_profile=user_profile,
+            description_headline=description_headline,
+            description=description,
+            hashtags=hashtags,
+            image=image,
+            created_at=timezone.now()
+        )
+
+        return redirect('get_posts') 
