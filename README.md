@@ -1,7 +1,7 @@
 # InstaCloneProject
 
-InstaCloneis a web application built using Django (backend) and JavaScript (frontend), 
-mimicking some functionalities of Instagram. It allows users to create posts, upload images, comment on posts, and like posts. 
+InstaClone is a web application built using Django (API/backend) and JavaScript (frontend), 
+inspired by some functionalities of Instagram. It allows users to create posts, upload images, comment on posts, and like posts. 
 This project uses a media folder to store uploaded images and provides a carousel view for posts with multiple images.
 
 ## Features
